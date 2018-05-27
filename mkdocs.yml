@@ -1,0 +1,23 @@
+site_name: 算法笔记
+repo_url: https://github.com/jlice/notes-algorithm
+site_description: 文剑木然的算法笔记
+site_author: 文剑木然
+
+extra_javascript: 
+    - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+
+markdown_extensions:
+    - mdx_math
+
+theme: readthedocs
+extra_css: 
+    - extra.css
+    
+pages: 
+    - 主页: index.md
+    - 动态规划:
+        - 'Climbing Stairs': 'Dynamic Programming/70. Climbing Stairs.md'
+        - 'Range Sum Query - Immutable': 'Dynamic Programming/303. Range Sum Query - Immutable.md'
+        - 'Counting Bits': 'Dynamic Programming/338. Counting Bits.md'
+        - 'Integer Break': 'Dynamic Programming/343. Integer Break.md'
+
