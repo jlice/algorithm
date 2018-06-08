@@ -20,4 +20,4 @@ pages:
         - 'Range Sum Query - Immutable': 'Dynamic Programming/303. Range Sum Query - Immutable.md'
         - 'Counting Bits': 'Dynamic Programming/338. Counting Bits.md'
         - 'Integer Break': 'Dynamic Programming/343. Integer Break.md'
-
+        - 'Count Numbers with Unique Digits': 'Dynamic Programming/357. Count Numbers with Unique Digits.md'
