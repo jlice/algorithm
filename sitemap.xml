@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+     <loc>/</loc>
+     <lastmod>2018-06-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/Dynamic Programming/70. Climbing Stairs/</loc>
+     <lastmod>2018-06-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/Dynamic Programming/303. Range Sum Query - Immutable/</loc>
+     <lastmod>2018-06-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/Dynamic Programming/338. Counting Bits/</loc>
+     <lastmod>2018-06-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/Dynamic Programming/343. Integer Break/</loc>
+     <lastmod>2018-06-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/Dynamic Programming/357. Count Numbers with Unique Digits/</loc>
+     <lastmod>2018-06-13</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+</urlset>

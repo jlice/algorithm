@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="文剑木然">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Climbing Stairs - 算法笔记</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../extra.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Climbing Stairs";
+    var mkdocs_page_input_path = "Dynamic Programming/70. Climbing Stairs.md";
+    var mkdocs_page_url = "/Dynamic Programming/70. Climbing Stairs/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> 算法笔记</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">主页</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">动态规划</span>
+    <ul class="subnav">
+                <li class=" current">
+                    
+    <a class="current" href="./">Climbing Stairs</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#70-climbing-stairs">70. Climbing Stairs</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#_1">问题描述</a></li>
+        
+            <li><a class="toctree-l4" href="#_2">思路分析</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../303. Range Sum Query - Immutable/">Range Sum Query - Immutable</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../338. Counting Bits/">Counting Bits</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../343. Integer Break/">Integer Break</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../357. Count Numbers with Unique Digits/">Count Numbers with Unique Digits</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">算法笔记</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>动态规划 &raquo;</li>
+        
+      
+    
+    <li>Climbing Stairs</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/jlice/notes-algorithm/edit/master/docs/Dynamic Programming/70. Climbing Stairs.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="70-climbing-stairs">70. Climbing Stairs</h1>
+<h2 id="_1">问题描述</h2>
+<p>You are climbing a stair case. It takes n steps to reach to the top.</p>
+<p>Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?</p>
+<p>Note: Given n will be a positive integer.</p>
+<p>Example 1:</p>
+<pre><code>Input: 2
+Output:  2
+Explanation:  There are two ways to climb to the top.
+
+1. 1 step + 1 step
+2. 2 steps
+</code></pre>
+
+<p>Example 2:</p>
+<pre><code>Input: 3
+Output:  3
+Explanation:  There are three ways to climb to the top.
+
+1. 1 step + 1 step + 1 step
+2. 1 step + 2 steps
+3. 2 steps + 1 step
+</code></pre>
+
+<p><a href="https://leetcode.com/problems/climbing-stairs/description/">70. Climbing Stairs</a></p>
+<h2 id="_2">思路分析</h2>
+<p>如果采用计算排列组合的方式会比较麻烦，不妨对问题进行分解。到第n阶的前一步必然是在第n-1阶或n-2阶，因此，到第n阶的走法就是到第n-1阶与n-2阶之和：</p>
+<p>F(n) = F(n-1) + F(n-2)</p>
+<p>记F(n)为到第n阶的走法。因此可以使用递归：</p>
+<pre><code class="Python">class Solution:
+    def climbStairs(self, n):
+        &quot;&quot;&quot;
+        :type n: int
+        :rtype: int
+        &quot;&quot;&quot;
+        if n &lt; 3:
+            return n
+        else:
+            return self.climbStairs(n-1) + self.climbStairs(n-2)
+</code></pre>
+
+<p>然而，递归虽然写起来简单，运行效率却不高，而且有很大的空间开销。当n比较大时，上述代码可能超时。因此，尝试将递归改为递推的写法。先列出前面的情况：</p>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>F(n)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>8</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<p>显然，要计算F(n)，不妨先计算F(3), F(4), F(5)，……于是，可以把代码改为这样：</p>
+<pre><code class="Python">class Solution:
+    def climbStairs(self, n):
+        &quot;&quot;&quot;
+        :type n: int
+        :rtype: int
+        &quot;&quot;&quot;
+        steps = [1, 2]
+        if n &lt; 3:
+            return n
+        else:
+            for i in range(n-2):
+                steps.append(steps[i] + steps[i+1])
+            return steps[-1]
+</code></pre>
+
+<p>上面的代码需要为F(1)到F(n)开辟一个数组，空间复杂度为O(n)。实际上并不需要这么多空间，只需要一个长度为2的数组即可。方法是，每次覆盖掉不再使用的数字，要通过奇偶判断来决定覆盖哪个数字，在返回结果时也要通过奇偶判断来决定取哪个数字，计算机进行奇偶判断是很快的。代码如下：</p>
+<pre><code class="Python">class Solution:
+    def climbStairs(self, n):
+        &quot;&quot;&quot;
+        :type n: int
+        :rtype: int
+        &quot;&quot;&quot;
+        steps = [1, 2]
+        if n &lt; 3:
+            return n
+        else:
+            for i in range(n-2):
+                if i % 2 == 0:
+                    steps[0] += steps[1]
+                else:
+                    steps[1] += steps[0]
+            if n % 2 == 0:
+                return steps[1]
+            else:
+                return steps[0]
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../303. Range Sum Query - Immutable/" class="btn btn-neutral float-right" title="Range Sum Query - Immutable">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../.." class="btn btn-neutral" title="主页"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/jlice/notes-algorithm/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../.." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../303. Range Sum Query - Immutable/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/require.js"></script>
+      <script src="../../search/search.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="文剑木然">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Count Numbers with Unique Digits - 算法笔记</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../extra.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Count Numbers with Unique Digits";
+    var mkdocs_page_input_path = "Dynamic Programming/357. Count Numbers with Unique Digits.md";
+    var mkdocs_page_url = "/Dynamic Programming/357. Count Numbers with Unique Digits/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> 算法笔记</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">主页</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">动态规划</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../70. Climbing Stairs/">Climbing Stairs</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../303. Range Sum Query - Immutable/">Range Sum Query - Immutable</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../338. Counting Bits/">Counting Bits</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../343. Integer Break/">Integer Break</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Count Numbers with Unique Digits</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#357-count-numbers-with-unique-digits">357. Count Numbers with Unique Digits</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#_1">问题描述</a></li>
+        
+            <li><a class="toctree-l4" href="#_2">思路分析</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">算法笔记</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>动态规划 &raquo;</li>
+        
+      
+    
+    <li>Count Numbers with Unique Digits</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/jlice/notes-algorithm/edit/master/docs/Dynamic Programming/357. Count Numbers with Unique Digits.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="357-count-numbers-with-unique-digits">357. Count Numbers with Unique Digits</h1>
+<h2 id="_1">问题描述</h2>
+<p>Given a non-negative integer n, count all numbers with unique digits, x, where 0 ≤ x &lt; 10^n.</p>
+<p>Example:
+Given n = 2, return 91. (The answer should be the total numbers in the range of 0 ≤ x &lt; 100, excluding <code>[11,22,33,44,55,66,77,88,99]</code>)</p>
+<p><a href="https://leetcode.com/problems/count-numbers-with-unique-digits/description/">357. Count Numbers with Unique Digits</a></p>
+<h2 id="_2">思路分析</h2>
+<p>可以分为最高位为0和不为0两种情况：对于前者，等于n-1时的数量；对于后者，直接计算即可。</p>
+<p>边界条件：n=0时，只有0这一种情况符合题意；n&gt;10时，结果都等于n=10的情况。</p>
+<pre><code class="Python">class Solution:
+    def countNumbersWithUniqueDigits(self, n):
+        &quot;&quot;&quot;
+        :type n: int
+        :rtype: int
+        &quot;&quot;&quot;
+        if n == 0:
+            return 1
+        else:
+            n = min(n, 10)
+            arr = [9, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+            a = self.countNumbersWithUniqueDigits(n-1)
+            b = 1
+            for i in range(n):
+                b *= arr[i]
+            return a + b
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../343. Integer Break/" class="btn btn-neutral" title="Integer Break"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/jlice/notes-algorithm/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../343. Integer Break/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/require.js"></script>
+      <script src="../../search/search.js"></script>
+
+</body>
+</html>

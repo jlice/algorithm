@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="文剑木然">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Counting Bits - 算法笔记</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../extra.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Counting Bits";
+    var mkdocs_page_input_path = "Dynamic Programming/338. Counting Bits.md";
+    var mkdocs_page_url = "/Dynamic Programming/338. Counting Bits/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> 算法笔记</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">主页</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">动态规划</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../70. Climbing Stairs/">Climbing Stairs</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../303. Range Sum Query - Immutable/">Range Sum Query - Immutable</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Counting Bits</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#338-counting-bits">338. Counting Bits</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#_1">问题描述</a></li>
+        
+            <li><a class="toctree-l4" href="#_2">思路分析</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../343. Integer Break/">Integer Break</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../357. Count Numbers with Unique Digits/">Count Numbers with Unique Digits</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">算法笔记</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>动态规划 &raquo;</li>
+        
+      
+    
+    <li>Counting Bits</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/jlice/notes-algorithm/edit/master/docs/Dynamic Programming/338. Counting Bits.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="338-counting-bits">338. Counting Bits</h1>
+<h2 id="_1">问题描述</h2>
+<p>Given a non negative integer number num. For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1's in their binary representation and return them as an array.</p>
+<p>Example:
+For <code>num = 5</code> you should return <code>[0,1,1,2,1,2]</code>.</p>
+<p>Follow up:</p>
+<ul>
+<li>It is very easy to come up with a solution with run time O(n*sizeof(integer)). But can you do it in linear time O(n) /possibly in a single pass?</li>
+<li>Space complexity should be O(n).</li>
+<li>Can you do it like a boss? Do it without using any builtin function like __builtin_popcount in c++ or in any other language.</li>
+</ul>
+<p><a href="https://leetcode.com/problems/counting-bits/description/">338. Counting Bits</a></p>
+<h2 id="_2">思路分析</h2>
+<p>先列出前面的情况，然后找规律：</p>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>n的二进制</th>
+<th>F(n)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>0</code></td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>1</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>10</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>11</code></td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>100</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>101</code></td>
+<td>2</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>110</code></td>
+<td>2</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>111</code></td>
+<td>3</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>1000</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<p>其中，F(n)表示n的二进制形式中1的数量。</p>
+<p>F(0)=0。注意到，若n=2^x，那么F(n)=1，此时n的二进制形式只有最高位为1，其余位均为0。其余的情况，可以分为两个部分：最高位的1和后面的位。例如6的二进制是<code>110</code>，去掉最高位就是<code>10</code>，显然有：F(6)=F(2)+1。</p>
+<ul>
+<li>F(0) = 0</li>
+<li>F(1) = 1</li>
+<li>F(2) = 1</li>
+<li>F(3) = F(3-2) + 1</li>
+<li>F(4) = 1</li>
+<li>F(5) = F(5-4) + 1</li>
+<li>F(6) = F(5-4) + 1</li>
+<li>F(7) = F(7-4) + 1</li>
+<li>F(8) = 1</li>
+<li>......</li>
+</ul>
+<p>根据上述规律，代码如下：</p>
+<pre><code class="Python">class Solution:
+    def countBits(self, num):
+        &quot;&quot;&quot;
+        :type num: int
+        :rtype: List[int]
+        &quot;&quot;&quot;
+        tmp = []
+        j = 0
+        for i in range(num+1):
+            if i == 0:
+                tmp.append(0)
+            elif i == 2 ** j:
+                tmp.append(1)
+                j += 1
+            else:
+                tmp.append(tmp[i-2**(j-1)]+1)
+        return tmp
+</code></pre>
+
+<p>其实，还有更好的解法。上面考虑的是n和去掉n的二进制最高位之间的关系，还是比较麻烦的。如果考虑n和去掉n的二进制最低位呢？去掉n的二进制最低位也就相当于把n的二进制往右移动1位，这样最后一位就没有了，而最后一位是0还是1可以通过n的奇偶性来判断：</p>
+<pre><code class="Python">class Solution:
+    def countBits(self, num):
+        &quot;&quot;&quot;
+        :type num: int
+        :rtype: List[int]
+        &quot;&quot;&quot;
+        tmp = [0]
+        for i in range(1, num+1):
+            tmp.append(tmp[i&gt;&gt;1] + i%2)
+        return tmp
+</code></pre>
+
+<p><code>i&gt;&gt;1</code>也可以写成<code>i//2</code>。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../343. Integer Break/" class="btn btn-neutral float-right" title="Integer Break">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../303. Range Sum Query - Immutable/" class="btn btn-neutral" title="Range Sum Query - Immutable"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/jlice/notes-algorithm/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../303. Range Sum Query - Immutable/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../343. Integer Break/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../../search/require.js"></script>
+      <script src="../../search/search.js"></script>
+
+</body>
+</html>
